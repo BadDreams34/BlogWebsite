@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// okah a user can have 0 post and 0 comment:((((
+model user {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+  comments comment[]
+  posts post[]
+}
+model post {
+  id Int @id @default(autoincrement())
+  Post String
+  comments comment[]
+  Author user @relation(fields: [AuthorId], references: [id])
+  AuthorId Int
+}
+
+model comment {
+  id Int @id @default(autoincrement())
+  comment String
+  User user @relation(fields: [UserId], references: [id])
+  UserId Int
+  Post post @relation(fields: [PostId], references: [id])
+  PostId Int
+}
+
+
