@@ -2,7 +2,6 @@ const {Router} = require('express');
 const postsrouter = Router();
 const cors = require('cors')
 postsrouter.options('/:postid', cors())
-postsrouter.use(cors())
 const {deletePost, EditPost, GetPosts, CreatePost, GetUserPosts} = require('../queries')
 
 postsrouter.delete('/:postid', (req,res)=>{

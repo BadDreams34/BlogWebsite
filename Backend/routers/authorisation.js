@@ -1,17 +1,18 @@
 const {Router} = require('express');
 const authRouter = Router();
-const cors = require('cors')
-authRouter.use(cors())
+
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const {ExtractJWT, Strategy: JWTStrategy} = require('passport-jwt')
+const {ExtractJwt, Strategy: JWTStrategy} = require('passport-jwt')
 const {Signup, SearchByuser, SearchById} = require('../queries')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+
 const opts = {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: 'honey'
 }
+
 
 passport.use(
     new LocalStrategy(
@@ -52,8 +53,8 @@ passport.use(
 
 authRouter.post('/signup', async (req, res)=>{
 try {
-    const hashedpassword = await bcrypt.hash(req.body.password)
-await Signup(req.body.email, hashedpassword, 10)
+    const hashedpassword = await bcrypt.hash(req.body.password, 10)
+await Signup(req.body.email, hashedpassword, req.body.username)
 return res.status(201).json({message: "user created"})
 } catch(err) {
     res.status(401).json({message: err.message})

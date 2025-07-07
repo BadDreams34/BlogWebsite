@@ -1,8 +1,7 @@
 const {Router} = require('express');
 const commentrouter = Router()
 const {Commentsfetch, CommentCreate} = require('../queries')
-const cors = require('cors')
-commentrouter.use(cors())
+
 
 
 commentrouter.get('/:postid/comment', (req, res) => {

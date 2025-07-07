@@ -1,5 +1,6 @@
-const {PrismaClient} = require('@prisma/client');
-const prisma = PrismaClient();
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 
 async function Commentsfetch() {
@@ -15,7 +16,6 @@ async function CommentCreate(comment, UserId, PostId) {
                 PostId }
         },
     )
-
 }
 
 async function deletePost(PostId) {
@@ -45,10 +45,10 @@ async function CreatePost(Post, AuthorId) {
     }
    })
 }
-async function Signup(email) {
+async function Signup(email, password, username) {
     await prisma.user.create({
         data: {
-            email
+            email, password, username
         }
     })
 }

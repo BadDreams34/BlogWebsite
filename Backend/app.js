@@ -12,13 +12,13 @@ const path = require('node:path');
 const {commentrouter} = require('./routers/comments')
 const {postsrouter} = require('./routers/posts')
 const {authRouter, VerifyToken} = require('./routers/authorisation')
+const cors = require('cors')
 
-
+app.use(cors())
 app.use('/api', VerifyToken);
-app.use('/api', commentrouter)
+app.use('/api', commentrouter) 
 app.use('/api', postsrouter)
 app.use('/auth', authRouter)
-
 
 
 const PORT = process.env.PORT || 4000;
