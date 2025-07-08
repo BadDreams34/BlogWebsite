@@ -3,19 +3,27 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 
-async function Commentsfetch() {
-    const rows = await prisma.findMany()
+
+async function Commentsfetch(PostId) {
+    const rows = await prisma.comment.findMany({
+        where:{
+            PostId
+        }
+    })
+    console.log(rows)
     return rows
 };
 
-async function CommentCreate(comment, UserId, PostId) {
+
+async function CommentCreate(comment, username, PostId) {
     const rows = await prisma.comment.create(
         {  data: {
                 comment,
-                UserId,
+                username,
                 PostId }
         },
     )
+    console.log(rows)
 }
 
 async function deletePost(PostId) {
@@ -56,13 +64,15 @@ async function Signup(email, password, username) {
     })
     console.log(user)
 }
+
 async function SearchById(id) {
     const rows = await prisma.user.findUnique({
         where: {
             id
         }
 })
-return rows}
+return rows
+}
 async function SearchByuser(email, password) {
     const rows = await prisma.user.findUnique({
         where: {
@@ -74,7 +84,10 @@ async function SearchByuser(email, password) {
 }
 async function GetPosts() {
     const rows = await prisma.post.findMany()
+    console.log(rows)
+
     return rows;
+    
 }
 
 async function GetUserPosts(id) {

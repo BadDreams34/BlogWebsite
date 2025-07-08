@@ -71,3 +71,7 @@ label {
     font-family: monospace;
     
 }
+
+.back {
+    align-self: center;
+}

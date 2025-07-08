@@ -4,7 +4,7 @@ const authRouter = Router();
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const {ExtractJwt, Strategy: JWTStrategy} = require('passport-jwt')
-const {Signup, SearchByuser, SearchById} = require('../queries')
+const {Signup, SearchByuser, SearchById, GetPosts} = require('../queries')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
@@ -64,12 +64,15 @@ return res.status(201).json({message: "user created"})
 authRouter.post('/login', (req, res, next)=>{
     console.log("login request recieved");
  
-    passport.authenticate('local', {session: false}, (err, user)=> {
+    passport.authenticate('local', {session: false}, async (err, user)=> {
         if (err || !user) { return res.status(400).json({message: "login failed"})}
+           const posts = await GetPosts()
+           console.log(posts)
         req.login(user, {session:false}, (err)=> {
             if (err) return res.send(err)
                 const token = jwt.sign({id:user.id}, 'honey')
-            return res.json({token, user})
+            
+            return res.json({token, user, posts})
         })
     })
 (req, res, next)})

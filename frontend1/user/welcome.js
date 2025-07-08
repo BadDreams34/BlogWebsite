@@ -12,3 +12,18 @@ logout.addEventListener('click', ()=>{
 })
 
 
+const posts = localStorage.getItem('posts')
+const postsss= JSON.parse(posts)
+const postss = document.querySelector('.posts')
+
+
+for (let post of postsss) {
+    const item = document.createElement('a')
+    const li = document.createElement('li')
+    item.textContent = post.title
+    item.href = `./mainpost.html?postid=${post.id}`
+    postss.appendChild(li)
+    li.appendChild(item)
+}
+
+

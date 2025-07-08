@@ -41,3 +41,19 @@ a {
 #top p {
     margin-left:auto;
 }
+
+h4 {
+    margin-left: 70px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: monospace;
+    font-size: 30px;
+
+}
+
+li {
+    margin-left: 60px;
+    font-family: monospace;
+    font-size: 15px;
+}
+

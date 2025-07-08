@@ -18,7 +18,7 @@ model user {
   id Int @id @default(autoincrement())
   email String @unique
   password String
-  username String
+  username String @unique
   comments comment[]
   posts post[]
 }
@@ -34,8 +34,8 @@ model post {
 model comment {
   id Int @id @default(autoincrement())
   comment String
-  User user @relation(fields: [UserId], references: [id])
-  UserId Int
+  User user? @relation(fields: [username], references: [username])
+  username String?
   Post post @relation(fields: [PostId], references: [id])
   PostId Int
 }

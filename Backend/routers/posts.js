@@ -16,13 +16,12 @@ return res.status(201).json({message: "edited"})
     res.status(401).json({message:err.message})
 }})
 
-
 postsrouter.get('/posts', (req,res)=> {
     const posts = GetPosts()
     res.json(posts)
-
-
+    
 })
+
 
 postsrouter.post('/posts', async (req,res)=> {
     try { 
@@ -30,8 +29,12 @@ postsrouter.post('/posts', async (req,res)=> {
      const post = req.body.post
      const userid = req.user.id
      const title = req.body.title
+  
      await CreatePost(post, userid,title)
-     return res.status(201).json({message: "created"})
+        const posts = await GetPosts()
+     return res.status(201).json(posts)
+
+
     } catch(err) {
         return res.status(401).json({message: err.message})
     }
@@ -42,6 +45,5 @@ postsrouter.post('/profile', (req,res)=>{
    const userposts = GetUserPosts(req.user.id)
    res.json(userposts)
 })
-
 
 module.exports = postsrouter;
