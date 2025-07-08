@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-  "postinstall": "cd Backend && npx prisma generate",
+  "postinstall": "cd Backend && npx prisma generate dev",
   "start": "cd Backend && node app.js"
 
 
