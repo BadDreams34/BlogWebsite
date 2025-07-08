@@ -4,7 +4,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./Backend/app.js"
+  "postinstall": "cd Backend && npx prisma generate",
+  "start": "cd Backend && node app.js"
+
+
   },
   "keywords": [],
   "author": "",
