@@ -34,10 +34,9 @@ passport.use(
 
     } catch(err) {
         console.log(err.message)
-        return done(err)
-        }}
-    )
-)
+        return done(err)}}))
+
+
 
 passport.use(
     new JWTStrategy(opts, async (payload, done)=> {
@@ -49,19 +48,22 @@ passport.use(
 
 
 
-
-
 authRouter.post('/signup', async (req, res)=>{
 try {
+    console.log('request of a asignup')
     const hashedpassword = await bcrypt.hash(req.body.password, 10)
 await Signup(req.body.email, hashedpassword, req.body.username)
 return res.status(201).json({message: "user created"})
 } catch(err) {
+    console.error('signup', err)
     res.status(401).json({message: err.message})
+
 }})
 
 
-authRouter.post('/login', (req, res)=>{
+authRouter.post('/login', (req, res, next)=>{
+    console.log("login request recieved");
+ 
     passport.authenticate('local', {session: false}, (err, user)=> {
         if (err || !user) { return res.status(400).json({message: "login failed"})}
         req.login(user, {session:false}, (err)=> {
@@ -70,8 +72,6 @@ authRouter.post('/login', (req, res)=>{
             return res.json({token, user})
         })
     })
-})
+(req, res, next)})
 const VerifyToken = passport.authenticate('jwt', { session: false });
-
-
 module.exports = {authRouter, VerifyToken};

@@ -25,6 +25,7 @@ model user {
 model post {
   id Int @id @default(autoincrement())
   Post String
+  title String
   comments comment[]
   Author user @relation(fields: [AuthorId], references: [id])
   AuthorId Int

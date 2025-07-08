@@ -37,20 +37,24 @@ async function EditPost(PostId, post) {
             Post: post}})
 }
 
-async function CreatePost(Post, AuthorId) {
-   await prisma.post.create({
+async function CreatePost(Post, AuthorId, title) {
+    console.log("post request recieved")
+  const post = await prisma.post.create({
     data: {
         AuthorId,
-        Post
+        Post,
+        title
     }
    })
+   console.log(post)
 }
 async function Signup(email, password, username) {
-    await prisma.user.create({
+   const user = await prisma.user.create({
         data: {
             email, password, username
         }
     })
+    console.log(user)
 }
 async function SearchById(id) {
     const rows = await prisma.user.findUnique({

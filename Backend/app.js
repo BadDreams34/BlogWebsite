@@ -9,27 +9,18 @@ const express = require('express')
 const app = express()
 const {body, validationResult} = require('express-validator')
 const path = require('node:path');
-const {commentrouter} = require('./routers/comments')
-const {postsrouter} = require('./routers/posts')
-const {authRouter, VerifyToken} = require('./routers/authorisation')
+const commentrouter = require('./routers/comments')
+const postsrouter = require('./routers/posts')
+const {authRouter, VerifyToken}= require('./routers/authorisation')
 const cors = require('cors')
-
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 app.use(cors())
 app.use('/api', VerifyToken);
-app.use('/api', commentrouter) 
+app.use('/api', commentrouter)
 app.use('/api', postsrouter)
 app.use('/auth', authRouter)
-
-
 const PORT = process.env.PORT || 4000;
-
 app.listen(PORT, ()=> {
     console.log(`listening to ${PORT}`)
 })
-
-
-
-
-
-
-

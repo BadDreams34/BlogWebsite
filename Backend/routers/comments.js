@@ -5,7 +5,6 @@ const {Commentsfetch, CommentCreate} = require('../queries')
 
 
 commentrouter.get('/:postid/comment', (req, res) => {
-
     const comments = Commentsfetch()
     res.json(comments)
 })

@@ -25,10 +25,12 @@ postsrouter.get('/posts', (req,res)=> {
 })
 
 postsrouter.post('/posts', async (req,res)=> {
-    try {
+    try { 
+        console.log('request of post recieved')
      const post = req.body.post
      const userid = req.user.id
-     await CreatePost(post, userid)
+     const title = req.body.title
+     await CreatePost(post, userid,title)
      return res.status(201).json({message: "created"})
     } catch(err) {
         return res.status(401).json({message: err.message})
