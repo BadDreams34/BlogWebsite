@@ -12,7 +12,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 // okah a user can have 0 post and 0 comment:((((
 model user {
