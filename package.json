@@ -6,7 +6,7 @@
   "test": "echo \"Error: no test specified\" && exit 1",
   "postinstall": "cd Backend && npx prisma generate && npx prisma migrate deploy",
   "start": "cd Backend && node app.js"
-}
+},
 
   "keywords": [],
   "author": "",
