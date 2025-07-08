@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = process.env.DATABASE_URL
 }
 // okah a user can have 0 post and 0 comment:((((
 model user {
